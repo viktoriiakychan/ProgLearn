@@ -1,0 +1,86 @@
+﻿@using _18_E_LEARN.BusinessLogic;
+@using _18_E_LEARN.DataAccess.Data.Models.Courses;
+@{
+    Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
+}
+@model IEnumerable<Course>
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6>Courses table</h6>
+                    @if (User.IsInRole("Administrators"))
+                    {
+                        <div class="align-middle text-center">
+                            <a class="btn bg-gradient-dark w-50 my-4 mb-4" data-toggle="tooltip" data-original-title="AddCourse" asp-controller="Courses" asp-action="Add">
+                                Add
+                            </a>
+                        </div>
+                    }
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Price</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category</th>
+                                    @if (User.IsInRole("Administrators"))
+                                    {
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var course in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div>
+                                                    @if (course.Image == Settings.DefaultCourseImage)
+                                                    {
+                                                        <img src="@course.Image" class="avatar avatar-sm me-3" alt="user1">
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/images//courses/@course.Image" class="avatar avatar-sm me-3" alt="user1">
+                                                    }
+                                                </div>
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">@course.Name</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">@Html.Raw(@course.Description)</p>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <p class="text-xs font-weight-bold mb-0">@course.Price</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">@course.CategoryName</span>
+                                        </td>
+                                        @if (User.IsInRole("Administrators"))
+                                        {
+                                            <td class="align-middle text-center">
+                                                <a class="btn btn-outline-dark mt-2" data-toggle="tooltip" data-original-title="Edit user" asp-controller="Courses" asp-action="Edit" asp-route-id="@course.Id">
+                                                    Edit
+                                                </a>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

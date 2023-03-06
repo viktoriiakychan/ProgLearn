@@ -1,0 +1,75 @@
+﻿@using _18_E_LEARN.BusinessLogic;
+@using _18_E_LEARN.DataAccess.Data.Models.Categories;
+@using _18_E_LEARN.DataAccess.Data.Models.Courses;
+@using _18_E_LEARN.DataAccess.Data.ViewModels.Courses;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Tuple<List<Course>, List <Category>>
+
+<div class="container m-1">
+    <div class="nav-wrapper position-relative end-0" style="float: left; width: 15%; margin-right: 25px;">
+
+        <ul class="nav nav-pills nav-fill flex-column" role="tablist" style="background: #344767; align-items: flex-start; align-content: space-evenly; padding-left: 15px; padding-right: 15px;">
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-controller="Home" asp-action="Courses">
+                    All
+                </a>
+            </li>
+            @foreach (var category in Model.Item2)
+            {
+                <li class="nav-item">
+                    <a class="nav-link text-white hover-el" asp-controller="Home" asp-action="Courses" asp-route-name="@category.Name">
+                        @category.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="col-12 mt-4">
+        <div class="card mb-4">
+            <div class="card-header pb-0 p-3 text-center">
+                <h3 class="mb-1">Courses</h3>
+                <p class="text-lg">Big variety of our courses opens doors in your life</p>
+            </div>
+            <div class="card-body p-3" style="display:flex; flex-wrap: wrap; justify-content: space-evenly;">
+                @foreach (var course in Model.Item1)
+                {
+                    <div class="col-xl-3 col-md-6 mb-xl-0 mb-4" style="margin:20px;">
+                        <div class="card card-blog card-plain">
+                            <div class="position-relative">
+                                <a class="d-block shadow-xl border-radius-xl">
+                                    @if (course.Image == Settings.DefaultCourseImage)
+                                    {
+                                        <img src="@course.Image" alt="img-blur-shadow" class="img-fluid shadow border-radius-xl">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/images//courses/@course.Image" alt="img-blur-shadow" class="img-fluid shadow border-radius-xl">
+                                    }
+                                </a>
+                            </div>
+                            <div class="card-body px-1 pb-0">
+                                <p class="text-gradient text-dark mb-2 text-sm">@course.CategoryName</p>
+                                <a href="javascript:;">
+                                    <h5>
+                                        @course.Name
+                                    </h5>
+                                </a>
+                                <p class="mb-4 text-sm">
+                                    @course.Description
+                                </p>
+                                <p class="mb-4 text-sm">
+                                    $@course.Price
+                                </p>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <button type="button" class="btn btn-outline-dark btn-sm mb-0">Begin Course</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

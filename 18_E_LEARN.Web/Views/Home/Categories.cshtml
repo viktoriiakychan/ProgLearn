@@ -1,0 +1,34 @@
+﻿@using _18_E_LEARN.DataAccess.Data.Models.Categories;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<Category>
+<div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('../assets/img/curved-images/curved9.jpg');">
+    <span class="mask bg-gradient-dark opacity-4"></span>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 text-center mx-auto">
+                <h1 class="text-white mb-2 mt-5">All Categories</h1>
+                <p class="text-white mb-1">ProgLearn provides you a huge choice of what you can learn</p>
+                <p class="text-white">Pick anything you like and enjoy leaning it with ProgLearn</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        <div class="row mt-lg-n10 mt-md-n11 mt-n10">
+            <div class="col-md-9 mx-auto text-center">
+                <div class="card card-frame text-center border-0" style="padding:20px; display: flex;flex-wrap: wrap;flex-direction: row;align-content: space-around;justify-content: space-evenly;align-items: center;">
+                    @foreach (var category in Model)
+                    {
+                        <div class="card-body my-4 w-25" style="border-radius: 0.85rem; margin:15px; box-shadow: 0 4px 7px -1px rgb(0 0 0 / 11%), 0 2px 4px -1px rgb(0 0 0 / 7%);background: rgb(7,12,103);
+background: linear-gradient(180deg, rgba(7,12,103,1) 0%, rgba(63,66,163,1) 56%, rgba(120,121,225,1) 88%, rgba(144,144,251,1) 100%);">
+                            <h4 style="color:white;">@category.Name</h4>
+                            <a asp-controller="Home" asp-action="Courses" asp-route-name="@category.Name" class="btn btn-light btn-lg my-4" style="color:rgb(7,12,103)">Learn more</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
